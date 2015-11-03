@@ -62,7 +62,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: landscape
+theme:
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
@@ -76,7 +76,3 @@ social:
   Github: https://github.com/zsp1987
   LinkedIn: https://www.linkedin.com/profile/view?id=227049019
   Facebook: https://www.facebook.com/zsp1987
-
-backup:
-    branch: backup
-    repo: git@github.com:zsp1987/zsp1987.github.io.git
