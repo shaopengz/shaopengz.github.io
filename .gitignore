@@ -1,10 +1,5 @@
+node_modules/
+public/
+
 .DS_Store
 Thumbs.db
-db.json
-*.log
-hexo
-public/
-node_modules/
-.deploy*/
-build/
-themes/

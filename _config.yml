@@ -3,16 +3,16 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Special Z
+title: Shaopeng Zhang's Site
 subtitle:
-description: A SPZ Personal Site
+description: Just some idea to share
 author: Shaopeng Zhang
 language: en
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://spzhang.com
+url: http://shaopengz.ml
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -62,17 +62,18 @@ pagination_dir: page
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme:
+theme: apollo
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/zsp1987/zsp1987.github.io.git
+  repo: https://github.com/shaopengz/shaopengz.github.io.git
 
-# Theme Specifics
-disqus_shortname: zsp1987
-social:
-  Github: https://github.com/zsp1987
-  LinkedIn: https://www.linkedin.com/profile/view?id=227049019
-  Facebook: https://www.facebook.com/zsp1987
+# 在归档页面显示所有文章
+# 需要上面安装的 hexo-generator-archive 插件支持
+archive_generator:
+    per_page: 0
+    yearly: false
+    monthly: false
+    daily: false
