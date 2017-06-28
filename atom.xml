@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Shaopeng Zhang&#39;s Site</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://shaopengz.ml/"/>
+  <updated>2017-06-28T16:22:44.530Z</updated>
+  <id>http://shaopengz.ml/</id>
+  
+  <author>
+    <name>Shaopeng Zhang</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Fix Protocol Knowledge</title>
+    <link href="http://shaopengz.ml/2015/06/15/fix-protocol-knowledge/"/>
+    <id>http://shaopengz.ml/2015/06/15/fix-protocol-knowledge/</id>
+    <published>2015-06-15T22:05:26.000Z</published>
+    <updated>2017-06-28T16:22:44.530Z</updated>
+    
+    <content type="html"><![CDATA[<p>Body Length = 65bt</p>
+<h3 id="Classification-of-Protocol"><a href="#Classification-of-Protocol" class="headerlink" title="Classification of Protocol:"></a>Classification of Protocol:</h3><ol>
+<li>Admin Message ( Session Message)</li>
+<li>Application Message( Trade, Pre-Trade, Post-Trade Message)</li>
+</ol>
+<h3 id="MsgType-D-newOrderSingle-place-a-order"><a href="#MsgType-D-newOrderSingle-place-a-order" class="headerlink" title="MsgType = D: newOrderSingle - place a order"></a>MsgType = D: newOrderSingle - place a order</h3><pre><code>= G: OrderCancelReplance - change quality and price
+= F: cancel order placed into market
+= 0: HeartBeat
+= 1: requestHeartBeat
+= 2: resend
+= 3: Session Level reject
+= 4: fill gap/seq reset
+= j: business level reject
+</code></pre><h3 id="common-issue"><a href="#common-issue" class="headerlink" title="common issue:"></a>common issue:</h3><p>network connectivity<br>firewall<br>incorrect host/port number<br>SenderCompID/TargetCompID<br>seq num mismatch<br>different FIX version</p>
+<h3 id="two-reason-be-logged-out"><a href="#two-reason-be-logged-out" class="headerlink" title="two reason be logged out"></a>two reason be logged out</h3><ol>
+<li>your seq is less than broker expects, u need to outgoing reset seq;</li>
+<li>your engine can logout broker if your expected seq is larger than broker incoming seq, our need to reset your incoming seq num.</li>
+</ol>
+<p>first check logon message( MsgType = A or 35=A) to verify connection between client and broker Engine.<br>check logout message( MsgType = 5 or 35=5)</p>
+<h3 id="Common-Tag-Num"><a href="#Common-Tag-Num" class="headerlink" title="Common Tag Num"></a>Common Tag Num</h3><p>Tag 9 = body length<br>Tag 10 = Check Sum<br>Tag 34 = Seq No.<br>Tag 44 = price<br>Tag 49 = SenderCompID<br>Tag 56 = TargetCompID<br>Tag 58 = reject reason<br>Tag 97 = PossResend<br>Tag 112 = TestRequestID<br>Tag 123 = GapFillFlag</p>
+<h3 id="Seq-Reset-Mode"><a href="#Seq-Reset-Mode" class="headerlink" title="Seq Reset Mode"></a>Seq Reset Mode</h3><p>Gap Fill( tag 123 is ‘Y’)<br>Recover Mode(tag 123 is ’N’)</p>
+<h4 id="PartyID-repeating-group-tags"><a href="#PartyID-repeating-group-tags" class="headerlink" title="PartyID repeating group tags"></a>PartyID repeating group tags</h4><p>453 NoPartyIDs(No should be Num)<br>448 PartyID<br>447 PartyIDSource<br>452 PartyRole</p>
+<h3 id="repeating-group-summary"><a href="#repeating-group-summary" class="headerlink" title="repeating group summary"></a>repeating group summary</h3><p>– When group of tags appear multiple times in a FIX message we call them repeating group.<br>   – Number tag is a leading tag which specifies how many repeating groups are present in the FIX message e.g. NoPartyIDs<br>   – First tag specified in FIX Message specification is used as marker tag to mark start and end of a FIX message.<br>   – No of repeating groups must match with the number specified by No### tag e.g. NoPartyIDs<br>   – Follow the order of tags specified in the FIX Message specification while constructing a repeating group<br>   – A Repeating group can contain another repeating group within it.<br>   – PartyID blocks are introduced in FIX 4.3 so it will not work on earlier FIX protocol versions. </p>
+<h3 id="Message-Reject"><a href="#Message-Reject" class="headerlink" title="Message Reject"></a>Message Reject</h3><ul>
+<li>MsgType = 8 Exectuion Report, </li>
+<li>MsgType = 9, cancelOrderReject (order have been full-filled in the market)<br>1) Account not mapped correctly on broker side.<br>2) Unknown ID<br>3) Valid but unsupported message type<br>4) Unknown security<br>5) Valid but unknown message type.<br>6) Some of conditionally required field is not present in Incoming FIX message.</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Body Length = 65bt&lt;/p&gt;
+&lt;h3 id=&quot;Classification-of-Protocol&quot;&gt;&lt;a href=&quot;#Classification-of-Protocol&quot; class=&quot;headerlink&quot; title=&quot;Classification
+    
+    </summary>
+    
+    
+      <category term="finance" scheme="http://shaopengz.ml/tags/finance/"/>
+    
+      <category term="network" scheme="http://shaopengz.ml/tags/network/"/>
+    
+      <category term="protocol" scheme="http://shaopengz.ml/tags/protocol/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java8 PartII</title>
+    <link href="http://shaopengz.ml/2015/05/15/Java8-PartII/"/>
+    <id>http://shaopengz.ml/2015/05/15/Java8-PartII/</id>
+    <published>2015-05-15T17:41:28.000Z</published>
+    <updated>2017-06-28T16:22:44.530Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Default-Methods"><a href="#Default-Methods" class="headerlink" title="Default Methods"></a>Default Methods</h2><p>This feature is wired when I first time hear it. Because I always thought that for a interface, method inside it should be leaving blank and just provide signatures.</p>
+<p>However, Java 8 bring in  a new keyword <code>default</code> in interface, when you want a default implement for a interface method. for example.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Printer</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.print(<span class="string">"I am a printer"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Wow, you implement a method in a interface, so what is the difference between interface and class. It seems very unreasonable to add this feature to interface, because it confuse the boundary between class(abstract) and interface.</p>
+<p>However, it is useful for legency libraries. Especially if you want to add some new method to a exsiting class. For example, <strong>Collections and Set</strong> in Java 8 have a new method called <strong>foreach</strong>. As the Java document says, The old way we do it is to rewrite the interface, and rewirte each class, that may cause problem. So they add default implementation in the interface so the subclass will automatic have the method. (but why not rewrite abstract class and interface? )</p>
+<p>Now, What about two interface have the same default method. e.g.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Printer1</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.print(<span class="string">"I am a printer"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Printer2</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.print(<span class="string">"I am a printer"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Two ways to solve.</p>
+<ol>
+<li>implement it in your child class.</li>
+<li>explicitly call with <code>super</code>, <code>Printer1.super.print()</code>.</li>
+</ol>
+<p>Another interesting fact is that interface now can have static method as the helper method for default method.~~~!!!!!!!!!</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Default-Methods&quot;&gt;&lt;a href=&quot;#Default-Methods&quot; class=&quot;headerlink&quot; title=&quot;Default Methods&quot;&gt;&lt;/a&gt;Default Methods&lt;/h2&gt;&lt;p&gt;This feature is wi
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="http://shaopengz.ml/tags/Java/"/>
+    
+      <category term="Java8" scheme="http://shaopengz.ml/tags/Java8/"/>
+    
+      <category term="new Features" scheme="http://shaopengz.ml/tags/new-Features/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java8 Part1</title>
+    <link href="http://shaopengz.ml/2015/05/13/Java8-part1/"/>
+    <id>http://shaopengz.ml/2015/05/13/Java8-part1/</id>
+    <published>2015-05-14T02:00:01.000Z</published>
+    <updated>2017-06-28T16:22:44.530Z</updated>
+    
+    <content type="html"><![CDATA[<p>Java 8 is really exciting by adding so many features to it.</p>
+<ol>
+<li>lamada expression</li>
+<li>method reference</li>
+<li>functional interface</li>
+<li>new Date/Time Api </li>
+<li>others(Nashom Javasciprt, Base64)</li>
+</ol>
+<h2 id="lamada-expression"><a href="#lamada-expression" class="headerlink" title="lamada expression"></a>lamada expression</h2><p>lamada express are use to implement some inferface (funciontal interface) which used in annoymouse inner class way.</p>
+<p>for example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">List&lt;Integer&gt; list = (List&lt;integer&gt;)Arrays.asList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</div><div class="line">Collections.sort(list, (a,b) -&gt; a &gt; b );</div></pre></td></tr></table></figure>
+<ul>
+<li>braces can be ignore</li>
+<li><code>return</code> can be ignore</li>
+<li>type parameter can be ignore, compiler will infers it.</li>
+</ul>
+<h2 id="method-reference"><a href="#method-reference" class="headerlink" title="method reference"></a>method reference</h2><p>A pointer refence to a method, following method can be refer:</p>
+<ol>
+<li>static method</li>
+<li>instance method</li>
+<li>constructor (by using <code>new</code> method)</li>
+</ol>
+<p>example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ArrayList::<span class="keyword">new</span>;</div><div class="line">System.out::println;</div></pre></td></tr></table></figure>
+<p>There are two types in <strong>java.util.function</strong>.</p>
+<blockquote>
+<p><em>Supplier</em>: accepts no arguments and produce a result of some arbitrary type.<br><em>Consumer</em>: take one argument and no output.</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Java 8 is really exciting by adding so many features to it.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;lamada expression&lt;/li&gt;
+&lt;li&gt;method reference&lt;/li&gt;
+&lt;li&gt;functional 
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="http://shaopengz.ml/tags/Java/"/>
+    
+      <category term="features" scheme="http://shaopengz.ml/tags/features/"/>
+    
+      <category term="intro" scheme="http://shaopengz.ml/tags/intro/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hadoop Part1</title>
+    <link href="http://shaopengz.ml/2015/04/29/hadoop-part1/"/>
+    <id>http://shaopengz.ml/2015/04/29/hadoop-part1/</id>
+    <published>2015-04-30T00:36:12.000Z</published>
+    <updated>2017-06-28T16:22:44.530Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Phase-of-Hadoop-process"><a href="#Phase-of-Hadoop-process" class="headerlink" title="Phase of Hadoop process:"></a>Phase of Hadoop process:</h2><ol>
+<li><strong>Mapper</strong>: read line by line, line number as key, line content as string value. Output tuple(K/V) by filter some things.</li>
+<li><strong>Combiner</strong>(Optional): invoker after mapper at Mapper Nodes, Hadoop not guarantee this process must happen or happens how many times.</li>
+<li><strong>Partitioner</strong>: According to the key value, distribute different Mapper output to different reducer nodes. The default behavior is by caculating the hash value of the key. But this can be rewrite if the distribution is not even.</li>
+<li><strong>Reducer</strong>: Collect multi outputs from different Mapper nodes and merge and process through reduce method.</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Phase-of-Hadoop-process&quot;&gt;&lt;a href=&quot;#Phase-of-Hadoop-process&quot; class=&quot;headerlink&quot; title=&quot;Phase of Hadoop process:&quot;&gt;&lt;/a&gt;Phase of Hadoop 
+    
+    </summary>
+    
+    
+      <category term="java" scheme="http://shaopengz.ml/tags/java/"/>
+    
+      <category term="big data" scheme="http://shaopengz.ml/tags/big-data/"/>
+    
+      <category term="hadoop" scheme="http://shaopengz.ml/tags/hadoop/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Laravel Study Day4</title>
+    <link href="http://shaopengz.ml/2015/04/27/laravel-study-day4/"/>
+    <id>http://shaopengz.ml/2015/04/27/laravel-study-day4/</id>
+    <published>2015-04-27T13:43:34.000Z</published>
+    <updated>2017-06-28T16:22:44.530Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Validation"><a href="#Validation" class="headerlink" title="Validation"></a>Validation</h2><h4 id="way-to-use-validator"><a href="#way-to-use-validator" class="headerlink" title="way to use validator:"></a>way to use validator:</h4><ul>
+<li>Facade: Validator::make($data, $rule), data and rule should be an array.</li>
+<li>Controller use a trait, inside Controller, we can directly call $this-&gt;validate($request, $rule)</li>
+<li>Create a NewRequest, and use type-hint in the controller method.</li>
+</ul>
+<p>If fail validator, will go back and store error messages in session. or send back 422 code for Ajax request.</p>
+<h2 id="Eloquent-ORM"><a href="#Eloquent-ORM" class="headerlink" title="Eloquent ORM"></a>Eloquent ORM</h2><p>Inside Model class, $table use to indicate table, $primaryKey indicated key($increment should also be setup false), $connection to switch mutilple tables. $timestamp to create create_at, update_at two columns.</p>
+<p>scopeGaga(), magic method, we can use -&gt;gaga() in Model to limit search</p>
+<h3 id="table-relations"><a href="#table-relations" class="headerlink" title="table relations"></a>table relations</h3><ol>
+<li>hasOne() &amp; belongsTo</li>
+<li>hasMany() &amp; belongsTo</li>
+<li>belongsToMany() and belongsToMany()</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Validation&quot;&gt;&lt;a href=&quot;#Validation&quot; class=&quot;headerlink&quot; title=&quot;Validation&quot;&gt;&lt;/a&gt;Validation&lt;/h2&gt;&lt;h4 id=&quot;way-to-use-validator&quot;&gt;&lt;a href=&quot;#w
+    
+    </summary>
+    
+    
+      <category term="web" scheme="http://shaopengz.ml/tags/web/"/>
+    
+      <category term="laravel" scheme="http://shaopengz.ml/tags/laravel/"/>
+    
+      <category term="php" scheme="http://shaopengz.ml/tags/php/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Laravel Study Day3</title>
+    <link href="http://shaopengz.ml/2015/04/26/laravel-study-day3/"/>
+    <id>http://shaopengz.ml/2015/04/26/laravel-study-day3/</id>
+    <published>2015-04-26T13:00:34.000Z</published>
+    <updated>2017-06-28T16:22:44.530Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Auth"><a href="#Auth" class="headerlink" title="Auth"></a>Auth</h2><p><code>Auth::attemp()</code> // customise auth field, first parameter is array, second option parameter could be a $remember to remember login<br><code>Auth::check()</code> // check is user loged in<br><code>Auth::viaRemember</code> // to check remembered.</p>
+<h5 id="how-to-get-a-user-instance"><a href="#how-to-get-a-user-instance" class="headerlink" title="how to get a user instance:"></a>how to get a user instance:</h5><ol>
+<li>use Auth::user()</li>
+<li>through $request, $request-&gt;user()</li>
+<li>in __construct(), through dependency injection and type int</li>
+</ol>
+<p>In Route: add <code>&#39;middleware&#39; =&gt; &#39;auth&#39;</code> to auth before process request.</p>
+<p><strong>*</strong> how to process oauth back user:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$user = Socialize::with(<span class="string">'github'</span>)-&gt;user();</div><div class="line"></div><div class="line"><span class="comment">// OAuth Two Providers</span></div><div class="line">$token = $user-&gt;token;</div><div class="line"></div><div class="line"><span class="comment">// OAuth One Providers</span></div><div class="line">$token = $user-&gt;token;</div><div class="line">$tokenSecret = $user-&gt;tokenSecret;</div><div class="line"></div><div class="line"><span class="comment">// All Providers</span></div><div class="line">$user-&gt;getId();</div><div class="line">$user-&gt;getNickname();</div><div class="line">$user-&gt;getName();</div><div class="line">$user-&gt;getEmail();</div><div class="line">$user-&gt;getAvatar();</div></pre></td></tr></table></figure></p>
+<h2 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h2><p>cache have following methods: put, add, has, remember(get or store), pull(get then forget), <code>forget</code></p>
+<p><code>tags()</code> method add tags, also group key/value pair in tags’s value. tags()-&gt;flush will delete all key/value pair in that tag.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Auth&quot;&gt;&lt;a href=&quot;#Auth&quot; class=&quot;headerlink&quot; title=&quot;Auth&quot;&gt;&lt;/a&gt;Auth&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Auth::attemp()&lt;/code&gt; // customise auth field, first par
+    
+    </summary>
+    
+    
+      <category term="web" scheme="http://shaopengz.ml/tags/web/"/>
+    
+      <category term="laravel" scheme="http://shaopengz.ml/tags/laravel/"/>
+    
+      <category term="php" scheme="http://shaopengz.ml/tags/php/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Laravel Study Day2</title>
+    <link href="http://shaopengz.ml/2015/04/25/laravel-study-day2/"/>
+    <id>http://shaopengz.ml/2015/04/25/laravel-study-day2/</id>
+    <published>2015-04-25T16:29:52.000Z</published>
+    <updated>2017-06-28T16:22:44.530Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h2><p>Route::get(‘foo’, [‘uses’ =&gt; ‘FooController@main’, ‘as’ =&gt; ‘fooController’]);<br>$url = action(‘foo’ =&gt; ‘\App\Http\Controller\FooControl@method’)</p>
+<p>middle can added to controller by two ways:</p>
+<ol>
+<li>in Route, by add them to Config</li>
+<li>in Controller itself, in __construct() method</li>
+</ol>
+<p><code>Route::controller([&#39;url&#39; =&gt; &#39;UrlController&#39;])</code> register a url to a controller, inside controller, we should define some method like <em>requsettype+url</em>( like getGaga() ).</p>
+<p>When use <code>php artisan make:controller</code> create new controller. It automatic create following restful method:</p>
+<ul>
+<li>index</li>
+<li>create</li>
+<li>store</li>
+<li>show</li>
+<li>edit</li>
+<li>update</li>
+<li>destory</li>
+</ul>
+<p>we can use Route::resource($url, $controller) to register:<br>we in third parameter, we can use <strong>only</strong>, and <strong>except</strong> to limit the method<br>url1.url2 = /url/{url1}/url/{url2}<br>Route::resource shoule be put in the last.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Controller&quot;&gt;&lt;a href=&quot;#Controller&quot; class=&quot;headerlink&quot; title=&quot;Controller&quot;&gt;&lt;/a&gt;Controller&lt;/h2&gt;&lt;p&gt;Route::get(‘foo’, [‘uses’ =&amp;gt; ‘FooCo
+    
+    </summary>
+    
+    
+      <category term="web" scheme="http://shaopengz.ml/tags/web/"/>
+    
+      <category term="laravel" scheme="http://shaopengz.ml/tags/laravel/"/>
+    
+      <category term="php" scheme="http://shaopengz.ml/tags/php/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Laravel Study Day1</title>
+    <link href="http://shaopengz.ml/2015/04/24/laravel-study-day1/"/>
+    <id>http://shaopengz.ml/2015/04/24/laravel-study-day1/</id>
+    <published>2015-04-25T00:02:19.000Z</published>
+    <updated>2017-06-28T16:22:44.530Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Route"><a href="#Route" class="headerlink" title="Route:"></a>Route:</h3><blockquote>
+<p>Route:get($url, $callback)<br>Route:post($url, $callback)<br>Route:match([‘get’, ‘post’], $url, $callback)<br>Route:any(‘url’, $callback)</p>
+</blockquote>
+<p><strong>Second parameter in method could be an array</strong>; like [‘as’ = ‘profile’, $callback]$callback can also replace by <code>&#39;use&#39; =&gt; &#39;controller&#39;</code><br>Now we can get the url of Route:<br>$url = $route(‘profile’);<br>$redirect()-&gt;route(‘profile’);</p>
+<p>$url = user/{id}  // $route-&gt;input(‘id’) to get para.<br>-&gt;where(‘id’, ‘[0-9]+’) // append where method to limit.</p>
+<p>by using Route::group() give all url in group following attribute: </p>
+<ul>
+<li>middleware add middleware to all url.</li>
+<li>namespace give all url group a fixed namespace</li>
+<li>domain give subdoain</li>
+<li>prefix add prefix</li>
+</ul>
+<h5 id="to-proof-csrf-in-input"><a href="#to-proof-csrf-in-input" class="headerlink" title="to proof csrf: in input"></a>to proof csrf: in input</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"_token"</span> <span class="attr">value</span>=<span class="string">"&lt;?php echo csrf_token(); ?&gt;"</span>&gt;</span></div></pre></td></tr></table></figure>
+<hr>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;Route&quot;&gt;&lt;a href=&quot;#Route&quot; class=&quot;headerlink&quot; title=&quot;Route:&quot;&gt;&lt;/a&gt;Route:&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;Route:get($url, $callback)&lt;br&gt;Route:post($u
+    
+    </summary>
+    
+    
+      <category term="web" scheme="http://shaopengz.ml/tags/web/"/>
+    
+      <category term="laravel" scheme="http://shaopengz.ml/tags/laravel/"/>
+    
+      <category term="php" scheme="http://shaopengz.ml/tags/php/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Angular Note</title>
+    <link href="http://shaopengz.ml/2015/04/23/angular-note/"/>
+    <id>http://shaopengz.ml/2015/04/23/angular-note/</id>
+    <published>2015-04-24T02:26:35.000Z</published>
+    <updated>2017-06-28T16:22:44.530Z</updated>
+    
+    <content type="html"><![CDATA[<p>$dirty: data have been changed<br>$invaild: value enter is invalid<br>$error: exact error</p>
+<p>two way to create service:</p>
+<ul>
+<li>factory </li>
+<li>service</li>
+</ul>
+<p>Dependency Injection is a software design pattern in which components are given their dependencies instead of hard coding them within the component.</p>
+<p>injectable component in AngularJS:</p>
+<ul>
+<li>value: simpe javascript object</li>
+<li>factory: a functure to return value</li>
+<li>service: singleton js obj contain function and attributes.</li>
+<li>provider: internally provide factory and service</li>
+<li>constant: constant config value</li>
+</ul>
+<p>directive: AngularJS application during bootstrap finds the matching elements and do one time activity using its compile() method of the custom directive then process the element using link() method of the custom directive based on the scope of the directive.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;$dirty: data have been changed&lt;br&gt;$invaild: value enter is invalid&lt;br&gt;$error: exact error&lt;/p&gt;
+&lt;p&gt;two way to create service:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Financial Engineer Day 2</title>
+    <link href="http://shaopengz.ml/2015/04/23/financial-engineer-day-2/"/>
+    <id>http://shaopengz.ml/2015/04/23/financial-engineer-day-2/</id>
+    <published>2015-04-23T19:20:08.000Z</published>
+    <updated>2017-06-28T16:22:44.530Z</updated>
+    
+    <content type="html"><![CDATA[<p>A <em>futures</em> contract is a financial agreement to buy or sell a prespecified quality and quantity of an asset (physical or financial) at a fixed date in the future (maturity date or delivery date) for a prespecified price (the futures price or the strike price).<br>A <em>swap</em> is a generic term for a financial contract between two parties to exchange cash flows at periodic times in the future.</p>
+<p>after reading future and swap section. Got a bad new that I may lost the oppotunities to join that financial company. So learning financial knowledge become a long term object. </p>
+<p>Now I need to swtich to angular and laravel, so I can proferm will on the Monday Interview.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;A &lt;em&gt;futures&lt;/em&gt; contract is a financial agreement to buy or sell a prespecified quality and quantity of an asset (physical or financia
+    
+    </summary>
+    
+    
+      <category term="finance" scheme="http://shaopengz.ml/tags/finance/"/>
+    
+      <category term="java" scheme="http://shaopengz.ml/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Financial Engineering Reading</title>
+    <link href="http://shaopengz.ml/2015/04/22/financial-engineering-reading/"/>
+    <id>http://shaopengz.ml/2015/04/22/financial-engineering-reading/</id>
+    <published>2015-04-22T23:22:29.000Z</published>
+    <updated>2017-06-28T16:22:44.530Z</updated>
+    
+    <content type="html"><![CDATA[<p>Today I will share some knowledege that I learning during I reading <strong>“Practical Methods of Financial Engineering and Risk Management”</strong>.</p>
+<p>###Financial Intrument:</p>
+<ul>
+<li>fixed income (USA bonds)</li>
+<li>credit (corporate bonds)</li>
+<li>emerging markets (BRIC)</li>
+<li>mortgage-backed securities</li>
+<li>equities</li>
+<li>commodities</li>
+<li><p>foreign exchanges</p>
+</li>
+<li><p>cash instruments</p>
+</li>
+<li>Futures and swaps</li>
+<li>Derivaives and structured products</li>
+</ul>
+<p>treastury bills mature within one years, note range from one to ten years, bond over ten years.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Today I will share some knowledege that I learning during I reading &lt;strong&gt;“Practical Methods of Financial Engineering and Risk Manageme
+    
+    </summary>
+    
+    
+      <category term="finance" scheme="http://shaopengz.ml/tags/finance/"/>
+    
+      <category term="programming" scheme="http://shaopengz.ml/tags/programming/"/>
+    
+  </entry>
+  
+</feed>

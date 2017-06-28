@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Java8 Part1 · Shaopeng Zhang's Site</title><meta name="description" content="Java8 Part1 - Shaopeng Zhang"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://shaopengz.ml/atom.xml" title="Shaopeng Zhang's Site"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="http://weibo.com/zsp1987" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/shaopengz" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Java8 Part1</h1><div class="post-info">May 13, 2015</div><div class="post-content"><p>Java 8 is really exciting by adding so many features to it.</p>
+<ol>
+<li>lamada expression</li>
+<li>method reference</li>
+<li>functional interface</li>
+<li>new Date/Time Api </li>
+<li>others(Nashom Javasciprt, Base64)</li>
+</ol>
+<h2 id="lamada-expression"><a href="#lamada-expression" class="headerlink" title="lamada expression"></a>lamada expression</h2><p>lamada express are use to implement some inferface (funciontal interface) which used in annoymouse inner class way.</p>
+<p>for example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">List&lt;Integer&gt; list = (List&lt;integer&gt;)Arrays.asList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</div><div class="line">Collections.sort(list, (a,b) -&gt; a &gt; b );</div></pre></td></tr></table></figure>
+<ul>
+<li>braces can be ignore</li>
+<li><code>return</code> can be ignore</li>
+<li>type parameter can be ignore, compiler will infers it.</li>
+</ul>
+<h2 id="method-reference"><a href="#method-reference" class="headerlink" title="method reference"></a>method reference</h2><p>A pointer refence to a method, following method can be refer:</p>
+<ol>
+<li>static method</li>
+<li>instance method</li>
+<li>constructor (by using <code>new</code> method)</li>
+</ol>
+<p>example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ArrayList::<span class="keyword">new</span>;</div><div class="line">System.out::println;</div></pre></td></tr></table></figure>
+<p>There are two types in <strong>java.util.function</strong>.</p>
+<blockquote>
+<p><em>Supplier</em>: accepts no arguments and produce a result of some arbitrary type.<br><em>Consumer</em>: take one argument and no output.</p>
+</blockquote>
+</div></article></div></main><footer><div class="paginator"><a href="/2015/05/15/Java8-PartII/" class="prev">PREV</a><a href="/2015/04/29/hadoop-part1/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2017 <a href="http://shaopengz.ml">Shaopeng Zhang</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>

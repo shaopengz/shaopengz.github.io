@@ -1,0 +1,19 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Laravel Study Day2 · Shaopeng Zhang's Site</title><meta name="description" content="Laravel Study Day2 - Shaopeng Zhang"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://shaopengz.ml/atom.xml" title="Shaopeng Zhang's Site"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="http://weibo.com/zsp1987" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/shaopengz" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Laravel Study Day2</h1><div class="post-info">Apr 25, 2015</div><div class="post-content"><h2 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h2><p>Route::get(‘foo’, [‘uses’ =&gt; ‘FooController@main’, ‘as’ =&gt; ‘fooController’]);<br>$url = action(‘foo’ =&gt; ‘\App\Http\Controller\FooControl@method’)</p>
+<p>middle can added to controller by two ways:</p>
+<ol>
+<li>in Route, by add them to Config</li>
+<li>in Controller itself, in __construct() method</li>
+</ol>
+<p><code>Route::controller([&#39;url&#39; =&gt; &#39;UrlController&#39;])</code> register a url to a controller, inside controller, we should define some method like <em>requsettype+url</em>( like getGaga() ).</p>
+<p>When use <code>php artisan make:controller</code> create new controller. It automatic create following restful method:</p>
+<ul>
+<li>index</li>
+<li>create</li>
+<li>store</li>
+<li>show</li>
+<li>edit</li>
+<li>update</li>
+<li>destory</li>
+</ul>
+<p>we can use Route::resource($url, $controller) to register:<br>we in third parameter, we can use <strong>only</strong>, and <strong>except</strong> to limit the method<br>url1.url2 = /url/{url1}/url/{url2}<br>Route::resource shoule be put in the last.</p>
+</div></article></div></main><footer><div class="paginator"><a href="/2015/04/26/laravel-study-day3/" class="prev">PREV</a><a href="/2015/04/24/laravel-study-day1/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2017 <a href="http://shaopengz.ml">Shaopeng Zhang</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
